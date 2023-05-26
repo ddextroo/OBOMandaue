@@ -31,7 +31,7 @@ import libratech.util.firebaseInit;
  */
 public class user_menu extends javax.swing.JPanel {
 
-    private List<Student> students;
+    private List<Student> users;
     private DatabaseReference dbRef;
     DefaultTableModel mod;
     private String path = "analytics/" + new getUID().getUid() + "/";
@@ -72,7 +72,7 @@ public class user_menu extends javax.swing.JPanel {
             }
         };
 
-        dbRef = FirebaseDatabase.getInstance().getReference("students/" + new getUID().getUid());
+        dbRef = FirebaseDatabase.getInstance().getReference("users/");
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -80,9 +80,9 @@ public class user_menu extends javax.swing.JPanel {
 
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     if ("Active".equals(child.child("status").getValue(String.class))) {
-                        String key = child.child("idno").getValue(String.class);
+                        String key = child.child("uiid").getValue(String.class);
                         String email = child.child("email").getValue(String.class);
-                        String IDnumber = child.child("idno").getValue(String.class);
+                        String IDnumber = child.child("school_id").getValue(String.class);
                         String status = child.child("status").getValue(String.class);
 
                         TableStatusStudent statust = new TableStatusStudent();
@@ -135,8 +135,8 @@ public class user_menu extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         studentTable1 = new libratech.user.students.studentTable();
         jPanel5 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        inshelfTable3 = new libratech.books.inshelf.InshelfTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        studentTable2 = new libratech.user.students.studentTable();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
@@ -227,7 +227,7 @@ public class user_menu extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Email", "ID Number", "Status", "Actions"
+                "School Name", "School ID", "Status", "Actions"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -242,31 +242,41 @@ public class user_menu extends javax.swing.JPanel {
 
         jPanel2.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        materialTabbed1.addTab("General", jPanel2);
+        materialTabbed1.addTab("Approved", jPanel2);
 
         jPanel5.setLayout(new java.awt.BorderLayout());
 
-        inshelfTable3.setModel(new javax.swing.table.DefaultTableModel(
+        studentTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Users", "Email", "History", "Penalties", "User ID", "Status", "Actions"
+                "School Name", "School ID", "Status", "Actions"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(inshelfTable3);
+        jScrollPane4.setViewportView(studentTable2);
 
-        jPanel5.add(jScrollPane3, java.awt.BorderLayout.CENTER);
+        jPanel5.add(jScrollPane4, java.awt.BorderLayout.CENTER);
 
-        materialTabbed1.addTab("Restricted User", jPanel5);
+        materialTabbed1.addTab("Pending", jPanel5);
 
         jPanel9.add(materialTabbed1);
 
@@ -301,19 +311,19 @@ public class user_menu extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
-    public libratech.books.inshelf.InshelfTable inshelfTable3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private libratech.design.MaterialTabbed materialTabbed1;
     private libratech.design.MaterialTabbed materialTabbed2;
     private libratech.design.MyButtonborderless myButtonborderless1;
     private javax.swing.JLabel scanner;
     private libratech.user.students.studentTable studentTable1;
+    private libratech.user.students.studentTable studentTable2;
     private javax.swing.JLabel userslabel;
     // End of variables declaration//GEN-END:variables
     public void initFont() {
