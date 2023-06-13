@@ -66,7 +66,7 @@ public class exit_dialog extends javax.swing.JPanel {
             }
         });
 
-        txt.setText("Are you sure you want to exit LibraTech?");
+        txt.setText("Are you sure you want to exit?");
         txt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         cancel.setForeground(new java.awt.Color(23, 23, 23));
