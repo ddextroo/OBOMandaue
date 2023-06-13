@@ -16,7 +16,7 @@ public class firebaseInit {
         try {
             FileInputStream refreshToken = null;
             
-            refreshToken = new FileInputStream("credentials.json");
+            refreshToken = new FileInputStream("src\\main\\resources\\credentials.json");
 
             FirebaseOptions options = null;
             try {

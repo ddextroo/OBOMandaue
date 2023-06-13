@@ -17,6 +17,9 @@ repositories {
     google()
 }
 
+version = '1.0.0'
+mainClassName = 'libratech.App'
+
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
@@ -58,4 +61,16 @@ application {
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'libratech.App'
+        )
+    }
+
+ duplicatesStrategy = DuplicatesStrategy.INCLUDE
+ from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+
 }

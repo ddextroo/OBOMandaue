@@ -35,7 +35,7 @@ public class storage {
 
     public String upload() throws IOException {
         String bucketName = "guestify-985ec.appspot.com";
-        FileInputStream serviceAccount = new FileInputStream("credentials2.json");
+        FileInputStream serviceAccount = new FileInputStream("src\\main\\resources\\credentials2.json");
         GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
 
         StorageOptions storageOptions = StorageOptions.newBuilder()
@@ -63,7 +63,7 @@ public class storage {
 
     public void download(String filePath) throws IOException {
         String bucketName = "guestify-985ec.appspot.com";
-        FileInputStream serviceAccount = new FileInputStream("credentials2.json");
+        FileInputStream serviceAccount = new FileInputStream("src\\main\\resources\\credentials2.json");
         GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
 
         StorageOptions storageOptions = StorageOptions.newBuilder()
