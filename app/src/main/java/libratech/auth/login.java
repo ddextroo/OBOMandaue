@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.ValueEventListener;
 import java.awt.Container;
+import java.awt.Cursor;
 import libratech.dashboard.home;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -92,10 +93,11 @@ public class login extends javax.swing.JFrame {
         GlassPanePopup.install(this);
         initFont();
         new firebaseInit().initFirebase();
-        ImageIcon icon1 = new ImageIcon("src\\main\\resources\\logo.png");
+        ImageIcon icon1 = new ImageIcon("src\\main\\resources\\l.png");
         this.setIconImage(icon1.getImage());
         ImageScaler scaler = new ImageScaler();
-        scaler.scaleImage(jLabel4, "src\\main\\resources\\logo.png");
+        scaler.scaleImage(jLabel4, "src\\main\\resources\\l.png");
+        scaler.scaleImage(jLabel2, "src\\main\\resources\\arrow-left-line.png");
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 12, 12));
 
     }
@@ -112,7 +114,6 @@ public class login extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -125,12 +126,10 @@ public class login extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         jPanel4 = new RoundedPanelBorderless(12, new Color(250, 250, 250));
         jLabel5 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        donthave = new javax.swing.JLabel();
-        here = new javax.swing.JLabel();
         jPanel10 = new RoundedPanelBorderless(12, new Color(250, 250, 250));
         jLabel7 = new javax.swing.JLabel();
         myButtonborderless1 = new libratech.design.MyButtonborderless();
+        jLabel2 = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -167,11 +166,7 @@ public class login extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(250, 250, 250));
-        jLabel1.setText("LIBRATECH");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(250, 250, 250));
-        jLabel3.setText("Library System Solution");
+        jLabel1.setText("OFFICE OF THE BUILDING OFFICIAL");
 
         jLabel4.setPreferredSize(new java.awt.Dimension(230, 230));
 
@@ -183,9 +178,7 @@ public class login extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(100, 100, 100)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -198,9 +191,7 @@ public class login extends javax.swing.JFrame {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(0, 0, 0)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addGap(31, 31, 31))
         );
 
         jPanel2.add(jPanel9, java.awt.BorderLayout.CENTER);
@@ -314,20 +305,6 @@ public class login extends javax.swing.JFrame {
         jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel4.add(jLabel5, new java.awt.GridBagConstraints());
 
-        donthave.setText("Don't have an account yet? Click");
-        jPanel5.add(donthave);
-
-        here.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        here.setForeground(new java.awt.Color(4, 28, 52));
-        here.setText("here");
-        here.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        here.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                hereMouseClicked(evt);
-            }
-        });
-        jPanel5.add(here);
-
         jPanel10.setOpaque(false);
         jPanel10.setBackground(new java.awt.Color(250, 250, 250));
         jPanel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -353,6 +330,14 @@ public class login extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setPreferredSize(new java.awt.Dimension(25, 25));
+        jLabel2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -362,14 +347,14 @@ public class login extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(myButtonborderless1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
+                        .addComponent(myButtonborderless1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(60, 60, 60)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -380,7 +365,7 @@ public class login extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(188, 188, 188)
                                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(16, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,19 +373,18 @@ public class login extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(90, 90, 90)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(84, 84, 84)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(14, 14, 14)
                 .addComponent(myButtonborderless1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+                .addGap(74, 74, 74))
         );
 
         getContentPane().add(jPanel1);
@@ -421,13 +405,6 @@ public class login extends javax.swing.JFrame {
     private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailActionPerformed
-
-    private void hereMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hereMouseClicked
-        // TODO add your handling code here:
-        signup signup = new signup();
-        signup.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_hereMouseClicked
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
         // TODO add your handling code here:
@@ -454,7 +431,7 @@ public class login extends javax.swing.JFrame {
         if (email.getText().toString().equals("") || pass.getPassword().length == 0) {
             JOptionPane.showMessageDialog(null, "Error: Field is empty", "Error", ERROR_MESSAGE);
         } else {
-            dbRef = FirebaseDatabase.getInstance().getReference("users");
+            dbRef = FirebaseDatabase.getInstance().getReference("users_OBO");
             dbRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -465,74 +442,64 @@ public class login extends javax.swing.JFrame {
                         String password = new String(passwordChars);
                         UserRecord userRecord = firebaseAuth.getUserByEmail(email_address);
                         String uid1 = userRecord.getUid();
-                        for (DataSnapshot child : dataSnapshot.getChildren()) {
-                            String uiddb = child.child("uid").getValue(String.class);
-                            String passdb = child.child("pass").getValue(String.class);
-                            System.out.println("UID_DB = " + uiddb + ": UID = " + uid1);
-                            System.out.println("PASS_DB = " + passdb + ": PASS = " + password);
-                            if (uiddb.equals(uid1) && passdb.equals(password)) {
-                                GlassPanePopup.closePopupAll();
-                                authh = true;
-                                key = uiddb;
-                                loginn = "true";
-                                System.out.println(key + " " + loginn);
+                        String uiddb = "EpvMM940awbywyvR64bNtIGVaGu2";
+                        String passdb = "obomandaue";
+                        if (uiddb.equals(uid1) && passdb.equals(password) && uiddb.equals("EpvMM940awbywyvR64bNtIGVaGu2")) {
+                            GlassPanePopup.closePopupAll();
+                            authh = true;
+                            key = uiddb;
+                            loginn = "true";
 
-                                if (validate.validate(email_address)) {
-                                    if (selected) {
-                                        try {
-                                            System.out.println("Key: " + key);
-                                            key = aes.encryptString(key, aes.getPassword());
-                                            try {
-                                                FileWriter writer = new FileWriter(file);
-                                                FileWriter writer1 = new FileWriter(file1);
-                                                writer.write(key);
-                                                writer.close();
-                                                writer1.write("true");
-                                                writer1.close();
-
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
-                                            }
-
-                                        } catch (Exception ex) {
-                                            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-                                        }
-
-                                    } else {
-                                        try {
-                                            key = aes.encryptString(key, aes.getPassword());
-                                            try {
-                                                FileWriter writer = new FileWriter(file);
-                                                writer.write(key);
-                                                writer.close();
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
-                                            }
-
-                                        } catch (Exception ex) {
-                                            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-                                        }
-                                        if (file1.exists()) {
-                                            file1.delete();
-                                        }
-                                    }
+                            if (selected) {
+                                try {
+                                    System.out.println("Key: " + key);
+                                    key = aes.encryptString(key, aes.getPassword());
                                     try {
-                                        home home = new home();
-                                        String decrypted = aes.decryptString(key, aes.getPassword());
-                                        home.updateLabelText(decrypted);
-                                        home.setVisible(true);
-                                        GlassPanePopup.closePopupLast();
-                                        exit();
-                                    } catch (Exception ex) {
-                                        Logger.getLogger(splash.class.getName()).log(Level.SEVERE, null, ex);
+                                        FileWriter writer = new FileWriter(file);
+                                        FileWriter writer1 = new FileWriter(file1);
+                                        writer.write(key);
+                                        writer.close();
+                                        writer1.write("true");
+                                        writer1.close();
+
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
                                     }
 
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Error: Must valid format", "Error", ERROR_MESSAGE);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
                                 }
-                                break;
+
+                            } else {
+                                try {
+                                    key = aes.encryptString(key, aes.getPassword());
+                                    try {
+                                        FileWriter writer = new FileWriter(file);
+                                        writer.write(key);
+                                        writer.close();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                } catch (Exception ex) {
+                                    Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                if (file1.exists()) {
+                                    file1.delete();
+                                }
+                            }
+                            try {
+                                home home = new home();
+                                String decrypted = aes.decryptString(key, aes.getPassword());
+                                home.updateLabelText(decrypted);
+                                home.setVisible(true);
+                                GlassPanePopup.closePopupLast();
+                                exit();
+                            } catch (Exception ex) {
+                                Logger.getLogger(splash.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
+
                     } catch (FirebaseAuthException ex) {
                         Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -552,6 +519,14 @@ public class login extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_myButtonborderless1ActionPerformed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        home home = new home();
+        home.setVisible(true);
+        this.dispose();
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -594,14 +569,12 @@ public class login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel donthave;
     private javax.swing.JTextField email;
     private javax.swing.JLabel emailaddlabel;
-    private javax.swing.JLabel here;
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -611,7 +584,6 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -624,8 +596,6 @@ public class login extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void initFont() {
-        donthave.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
-        here.setFont(new Font("Poppins Regular", Font.BOLD, 12));
         email.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
         pass.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
         emailaddlabel.setFont(new Font("Poppins Regular", Font.BOLD, 12));
@@ -636,7 +606,6 @@ public class login extends javax.swing.JFrame {
         jLabel6.setFont(new Font("Poppins Regular", Font.BOLD, 12));
         jLabel7.setFont(new Font("Poppins Regular", Font.BOLD, 18));
         jLabel1.setFont(new Font("Poppins Regular", Font.BOLD, 18));
-        jLabel3.setFont(new Font("Poppins Regular", Font.PLAIN, 14));
         jCheckBox1.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
     }
 

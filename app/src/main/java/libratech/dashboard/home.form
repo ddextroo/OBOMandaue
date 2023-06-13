@@ -54,7 +54,7 @@
                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="750" max="32767" attributes="0"/>
+                  <EmptySpace pref="767" max="32767" attributes="0"/>
                   <Component id="jPanel7" min="-2" pref="49" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -133,7 +133,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="fa" green="fa" red="fa" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="LIBRATECH"/>
+            <Property name="text" type="java.lang.String" value="OFFICE OF THE"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
@@ -144,7 +144,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="fa" green="fa" red="fa" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Library System Solution"/>
+            <Property name="text" type="java.lang.String" value="BUILDING OFFICIAL"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -167,8 +167,12 @@
               <Component id="jPanel10" alignment="1" pref="185" max="32767" attributes="0"/>
               <Component id="jPanel15" alignment="1" pref="185" max="32767" attributes="0"/>
               <Component id="jPanel18" alignment="1" pref="185" max="32767" attributes="0"/>
-              <Component id="jPanel20" alignment="1" pref="185" max="32767" attributes="0"/>
               <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jPanel8" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -180,9 +184,9 @@
                   <Component id="jPanel15" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jPanel18" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jPanel20" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="493" max="32767" attributes="0"/>
+                  <EmptySpace pref="440" max="32767" attributes="0"/>
+                  <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                   <Component id="jPanel5" min="-2" pref="357" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               </Group>
@@ -207,6 +211,7 @@
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new RoundedPanelBorderless(12, new java.awt.Color(4,28,52,0))"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
 
           <Layout>
@@ -224,7 +229,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel14" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="7" max="32767" attributes="0"/>
+                      <EmptySpace pref="12" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -242,6 +247,7 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new RoundedPanelBorderless(12, new java.awt.Color(41,182,246, 0))"/>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
@@ -265,18 +271,6 @@
                     <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalStrut"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel10">
-                  <Properties>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[27, 27]"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel11">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="       "/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel14">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -285,8 +279,11 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="fa" green="fa" red="fa" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Dashboard"/>
+                    <Property name="text" type="java.lang.String" value="Home"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -309,6 +306,7 @@
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new RoundedPanelBorderless(12, new java.awt.Color(41,182,246, 0))"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
 
           <Layout>
@@ -326,7 +324,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel16" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="7" max="32767" attributes="0"/>
+                      <EmptySpace pref="12" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -347,6 +345,7 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new RoundedPanelBorderless(12, new java.awt.Color(41,182,246, 0))"/>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
@@ -370,18 +369,6 @@
                     <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalStrut"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel15">
-                  <Properties>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[27, 27]"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel16">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="       "/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel17">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -390,8 +377,11 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="e0" green="e0" red="e0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Books"/>
+                    <Property name="text" type="java.lang.String" value="Occupancy Files"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -414,6 +404,7 @@
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new RoundedPanelBorderless(12, new java.awt.Color(41,182,246, 0))"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
 
           <Layout>
@@ -431,7 +422,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel19" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="7" max="32767" attributes="0"/>
+                      <EmptySpace pref="12" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -452,6 +443,7 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new RoundedPanelBorderless(12, new java.awt.Color(41,182,246, 0))"/>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
@@ -475,18 +467,6 @@
                     <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalStrut"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel18">
-                  <Properties>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[27, 27]"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel19">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="       "/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel20">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -495,113 +475,11 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="e0" green="e0" red="e0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="User"/>
-                  </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="jPanel20">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new java.awt.Color(41,182,246, 0)" type="code"/>
-            </Property>
-            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Hand Cursor"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[50, 50]"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel20MouseClicked"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new RoundedPanelBorderless(12, new java.awt.Color(41,182,246, 0))"/>
-          </AuxValues>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                      <Component id="jPanel21" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel21" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="7" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Container class="javax.swing.JPanel" name="jPanel21">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new java.awt.Color(41,182,246, 65)" type="code"/>
-                </Property>
-                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Hand Cursor"/>
-                </Property>
-                <Property name="opaque" type="boolean" value="false"/>
-              </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel21MouseClicked"/>
-              </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new RoundedPanelBorderless(12, new java.awt.Color(41,182,246, 0))"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
-                <Property name="alignment" type="int" value="0"/>
-                <Property name="horizontalGap" type="int" value="0"/>
-              </Layout>
-              <SubComponents>
-                <Component class="javax.swing.Box$Filler" name="filler11">
-                  <Properties>
-                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[15, 32767]"/>
-                    </Property>
-                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[15, 0]"/>
-                    </Property>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[15, 0]"/>
-                    </Property>
+                    <Property name="text" type="java.lang.String" value="Building Permit"/>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalStrut"/>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel21">
-                  <Properties>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[27, 27]"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel22">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="       "/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel23">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="16" style="1"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="e0" green="e0" red="e0" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Settings"/>
-                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
@@ -628,12 +506,6 @@
                 <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.VerticalGlue"/>
               </AuxValues>
             </Component>
-            <Container class="libratech.design.ImageAvatar" name="imageAvatar1">
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-                <Property name="useNullLayout" type="boolean" value="true"/>
-              </Layout>
-            </Container>
             <Component class="javax.swing.Box$Filler" name="filler4">
               <Properties>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -670,7 +542,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="fa" green="fa" red="fa" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="School Name"/>
+                    <Property name="text" type="java.lang.String" value="Staff"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -683,19 +555,6 @@
               </Properties>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JLabel" name="idnum">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="fa" green="fa" red="fa" type="rgb"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="fa" green="fa" red="fa" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="ID Number"/>
-                  </Properties>
-                </Component>
-              </SubComponents>
             </Container>
             <Component class="javax.swing.Box$Filler" name="filler2">
               <Properties>
@@ -729,6 +588,31 @@
                 </Component>
               </SubComponents>
             </Container>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="jPanel8">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="34" green="1c" red="4" type="rgb"/>
+            </Property>
+          </Properties>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+          <SubComponents>
+            <Component class="libratech.design.MyButton" name="myButton2">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="fa" green="fa" red="fa" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Login"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[76, 40]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myButton2ActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

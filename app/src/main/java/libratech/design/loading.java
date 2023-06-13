@@ -22,7 +22,7 @@ public class loading extends javax.swing.JPanel {
         initComponents();
         setOpaque(false);
         setBackground(new java.awt.Color(0,0,0,0));
-        scaler.scaleImage(jLabel2, "src\\main\\resources\\logo.png");
+        scaler.scaleImage(jLabel2, "src\\main\\resources\\l.png");
     }
 
     @Override

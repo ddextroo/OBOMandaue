@@ -4,6 +4,7 @@
  */
 package libratech.dashboard;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -11,6 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
 import java.io.File;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import libratech.auth.splash;
 import libratech.design.GlassPanePopup;
@@ -62,7 +64,7 @@ public class logout_dialog extends javax.swing.JPanel {
         confirmlabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         confirmlabel.setText("Confirm");
 
-        txt.setText("Are you sure you want to log out of your library account? You will no longer be able to access your account information, return or borrow books.");
+        txt.setText("Are you sure you want to log out of your account?");
         txt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         confirm.setForeground(new java.awt.Color(224, 224, 224));
@@ -116,12 +118,10 @@ public class logout_dialog extends javax.swing.JPanel {
 
     private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
         // TODO add your handling code here:
-        splash splash = new splash();
         String filePath = "uid.txt";
         File file = new File(filePath);
         String filePath1 = "remember.txt";
         File file1 = new File(filePath1);
-        home home = (home) SwingUtilities.getWindowAncestor(logout_dialog.this);
 
         if (file.exists()) {
             boolean deleted = file.delete();
@@ -129,13 +129,35 @@ public class logout_dialog extends javax.swing.JPanel {
                 if (file1.exists()) {
                     file1.delete();
                 }
-                splash.setVisible(true);
+                home home = new home();
+                home.setVisible(true);
+                home.jPanel15.setBackground(Color.decode("#0E2C4A"));
+                home.jPanel10.setBackground(Color.decode("#041C34"));
+                home.jPanel18.setBackground(Color.decode("#041C34"));
+                home.jLabel17.setFont(new Font("Poppins Regular", Font.BOLD, 16));
+                home.jLabel14.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
+                home.jLabel20.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
+                CardLayout cardLayout = (CardLayout) home.jPanel3.getLayout();
+                cardLayout.show(home.jPanel3, "book");
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(logout_dialog.this);
+                frame.dispose();
                 home.setVisible(false);
                 GlassPanePopup.closePopupLast();
                 home.dispose();
             }
         } else {
-            splash.setVisible(true);
+            home home = new home();
+            home.setVisible(true);
+            home.jPanel15.setBackground(Color.decode("#0E2C4A"));
+            home.jPanel10.setBackground(Color.decode("#041C34"));
+            home.jPanel18.setBackground(Color.decode("#041C34"));
+            home.jLabel17.setFont(new Font("Poppins Regular", Font.BOLD, 16));
+            home.jLabel14.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
+            home.jLabel20.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
+            CardLayout cardLayout = (CardLayout) home.jPanel3.getLayout();
+            cardLayout.show(home.jPanel3, "book");
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(logout_dialog.this);
+            frame.dispose();
             home.setVisible(false);
             GlassPanePopup.closePopupLast();
             home.dispose();
@@ -144,8 +166,19 @@ public class logout_dialog extends javax.swing.JPanel {
 
         } else {
             file.delete();
-            splash.setVisible(true);
-            setVisible(false);
+            home home = new home();
+            home.setVisible(true);
+            home.jPanel15.setBackground(Color.decode("#0E2C4A"));
+            home.jPanel10.setBackground(Color.decode("#041C34"));
+            home.jPanel18.setBackground(Color.decode("#041C34"));
+            home.jLabel17.setFont(new Font("Poppins Regular", Font.BOLD, 16));
+            home.jLabel14.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
+            home.jLabel20.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
+            CardLayout cardLayout = (CardLayout) home.jPanel3.getLayout();
+            cardLayout.show(home.jPanel3, "book");
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(logout_dialog.this);
+            frame.dispose();
+            home.setVisible(false);
             GlassPanePopup.closePopupLast();
             home.dispose();
         }

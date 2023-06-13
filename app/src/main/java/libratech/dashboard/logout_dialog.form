@@ -69,7 +69,7 @@
     </Component>
     <Component class="javax.swing.JTextPane" name="txt">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Are you sure you want to log out of your library account? You will no longer be able to access your account information, return or borrow books."/>
+        <Property name="text" type="java.lang.String" value="Are you sure you want to log out of your account?"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
           <Color id="Default Cursor"/>
         </Property>

@@ -4,26 +4,46 @@
  */
 package libratech.dashboard;
 
+import java.awt.Font;
+import libratech.design.GlassPanePopup;
+import java.util.List;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import java.awt.AWTEvent;
+import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Font;
+import java.awt.Cursor;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import libratech.design.GlassPanePopup;
+import libratech.auth.signup;
+import libratech.books.inshelf.Book;
+import libratech.books.inshelf.EventAction;
+import libratech.books.inshelf.StatusType;
+import libratech.books.inshelf.TableStatus;
 import libratech.design.ImageScaler;
 import libratech.design.RoundedPanel;
+import libratech.design.loading;
 import libratech.models.getUID;
 import libratech.models.pushValue;
-import libratech.user.students.EventActionStudent;
-import libratech.user.students.StatusTypeStudent;
-import libratech.user.students.Student;
-import libratech.user.students.TableStatusStudent;
 import libratech.util.firebaseInit;
+import libratech.util.storage;
 
 /**
  *
@@ -31,78 +51,83 @@ import libratech.util.firebaseInit;
  */
 public class user_menu extends javax.swing.JPanel {
 
-    private List<Student> users;
+    private List<Book> books;
     private DatabaseReference dbRef;
+    private DatabaseReference dbRef1;
+    private DatabaseReference dbRef2;
     DefaultTableModel mod;
+    DefaultTableModel mod1;
     private String path = "analytics/" + new getUID().getUid() + "/";
     private DatabaseReference analytics = FirebaseDatabase.getInstance().getReference(path);
     private HashMap<String, Object> m;
     private pushValue v;
     ImageScaler scaler = new ImageScaler();
-    
+    boolean exist;
+    private String localFilePath;
+    private String remoteFilePath;
+    private DatabaseReference databaseReference;
+
     public user_menu() {
         initComponents();
         initFont();
-        this.mod = (DefaultTableModel) studentTable1.getModel();
+        this.databaseReference = FirebaseDatabase.getInstance().getReference();
+        this.mod = (DefaultTableModel) inshelfTable1.getModel();
         new firebaseInit().initFirebase();
-        studentTable1.fixTable(jScrollPane2);
+        inshelfTable1.fixTable(jScrollPane1);
         retrieveData();
-        scaler.scaleImage(scanner, "src\\main\\resources\\qr-scan-line.png");
 
+        String filePath = "uid.txt";
+        File file = new File(filePath);
+
+        scaler.scaleImage(jLabel20, "src\\main\\resources\\search-line.png");
+
+        if (!file.exists()) {
+            myButtonborderless1.setVisible(false);
+        }
     }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        ImageIcon imageIcon = new ImageIcon("src\\main\\resources\\bgc.png");
+        Image image = imageIcon.getImage();
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+    }
+
+    ;
     
      private void retrieveData() {
-        // Fetch data from Firebase and create table
-        EventActionStudent eventAction = new EventActionStudent() {
-
+        EventAction eventAction = new EventAction() {
             @Override
-            public void update(Student student) {
-                System.out.println("Ck: " + student.getIDnumber());
-                // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-            }
-
-            @Override
-            public void selectIDNumber(String idNumber) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-            }
-
-            @Override
-            public String getSelectedIDNumber() {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            public void update(Book book) {
+                try {
+                    String filename = book.getFilename();
+                    new storage().download(filename);
+                } catch (IOException ex) {
+                    Logger.getLogger(books_menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         };
 
-        dbRef = FirebaseDatabase.getInstance().getReference("users/");
+        dbRef = FirebaseDatabase.getInstance().getReference("files/");
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mod.setRowCount(0);
 
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    if ("Active".equals(child.child("status").getValue(String.class))) {
-                        String key = child.child("uiid").getValue(String.class);
-                        String email = child.child("email").getValue(String.class);
-                        String IDnumber = child.child("school_id").getValue(String.class);
-                        String status = child.child("status").getValue(String.class);
+                    if (child.child("filename").getValue(String.class).contains("BP#")) {
+                        String key = child.child("key").getValue(String.class);
+                        String filename = child.child("filename").getValue(String.class);
+                        String file_created = child.child("filecreated").getValue(String.class);
 
-                        TableStatusStudent statust = new TableStatusStudent();
-
-                        if (status.equals("Active")) {
-                            statust.setType(StatusTypeStudent.Active);
-                        } else {
-                            statust.setType(StatusTypeStudent.Restricted);
-                        }
-                        studentTable1.addRow(new Student(email, IDnumber, statust.getType()).toRowTable(eventAction));
-                        new Student().setIDnumber(key);
+                        inshelfTable1.addRow(new Book(filename, file_created).toRowTableFiles(eventAction));
+                        new Book().setChildKey(key);
                         mod.fireTableDataChanged();
-                        studentTable1.repaint();
-                        studentTable1.revalidate();
+                        inshelfTable1.repaint();
+                        inshelfTable1.revalidate();
                     }
                 }
-                v = new pushValue("active");
-                m = new HashMap<>();
-                m.put("total", mod.getRowCount());
-                v.pushData(path, m);
 
             }
 
@@ -123,37 +148,35 @@ public class user_menu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        materialTabbed2 = new libratech.design.MaterialTabbed();
         jPanel1 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        userslabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         myButtonborderless1 = new libratech.design.MyButtonborderless();
-        scanner = new javax.swing.JLabel();
+        jPanel26 = new RoundedPanel(12, new Color(245,245,245));
+        search18 = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
-        materialTabbed1 = new libratech.design.MaterialTabbed();
-        jPanel2 = new RoundedPanel(12, new Color(255,255,255));
-        jScrollPane2 = new javax.swing.JScrollPane();
-        studentTable1 = new libratech.user.students.studentTable();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        studentTable2 = new libratech.user.students.studentTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        inshelfTable1 = new libratech.books.inshelf.InshelfTable();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
 
         setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setBackground(new java.awt.Color(224, 224, 224));
+        jPanel1.setBackground(new java.awt.Color(224, 224, 224,0));
+        jPanel1.setOpaque(false);
         jPanel1.setLayout(new java.awt.BorderLayout(30, 10));
 
-        jPanel8.setBackground(new java.awt.Color(224, 224, 224));
+        jPanel8.setBackground(new java.awt.Color(224, 224, 224,0));
+        jPanel8.setOpaque(false);
 
-        userslabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        userslabel.setForeground(new java.awt.Color(58, 58, 58));
-        userslabel.setText("Users");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(58, 58, 58));
+        jLabel1.setText("Building Permit");
 
         myButtonborderless1.setForeground(new java.awt.Color(250, 250, 250));
-        myButtonborderless1.setText("Add User");
+        myButtonborderless1.setText("Upload File");
         myButtonborderless1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 myButtonborderless1MouseClicked(evt);
@@ -165,15 +188,46 @@ public class user_menu extends javax.swing.JPanel {
             }
         });
 
-        scanner.setPreferredSize(new java.awt.Dimension(25, 25));
-        scanner.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                scannerMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                scannerMouseExited(evt);
+        jPanel26.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel26.setOpaque(false);
+
+        search18.setBackground(new java.awt.Color(245, 245, 245));
+        search18.setBorder(null);
+        search18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                search18ActionPerformed(evt);
             }
         });
+        search18.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                search18KeyTyped(evt);
+            }
+        });
+
+        jLabel20.setPreferredSize(new java.awt.Dimension(20, 20));
+
+        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
+        jPanel26.setLayout(jPanel26Layout);
+        jPanel26Layout.setHorizontalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(search18, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel26Layout.setVerticalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(search18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jPanel26.setOpaque(false);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -181,25 +235,22 @@ public class user_menu extends javax.swing.JPanel {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(userslabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 969, Short.MAX_VALUE)
-                .addComponent(scanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 501, Short.MAX_VALUE)
+                .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(myButtonborderless1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGap(32, 32, 32))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userslabel)
-                    .addComponent(myButtonborderless1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(myButtonborderless1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel26, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(scanner, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
         );
 
         jPanel1.add(jPanel8, java.awt.BorderLayout.PAGE_START);
@@ -207,78 +258,25 @@ public class user_menu extends javax.swing.JPanel {
         jPanel9.setBackground(new java.awt.Color(224, 224, 224));
         jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.LINE_AXIS));
 
-        materialTabbed1.setBackground(new java.awt.Color(250, 250, 250));
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new java.awt.BorderLayout());
-
-        studentTable1.setModel(new javax.swing.table.DefaultTableModel(
+        inshelfTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "School Name", "School ID", "Status", "Actions"
+                "File Name", "Date Created", "Actions"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(studentTable1);
+        jScrollPane1.setViewportView(inshelfTable1);
 
-        jPanel2.add(jScrollPane2, java.awt.BorderLayout.CENTER);
-
-        materialTabbed1.addTab("Approved", jPanel2);
-
-        jPanel5.setLayout(new java.awt.BorderLayout());
-
-        studentTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "School Name", "School ID", "Status", "Actions"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane4.setViewportView(studentTable2);
-
-        jPanel5.add(jScrollPane4, java.awt.BorderLayout.CENTER);
-
-        materialTabbed1.addTab("Pending", jPanel5);
-
-        jPanel9.add(materialTabbed1);
+        jPanel9.add(jScrollPane1);
 
         jPanel1.add(jPanel9, java.awt.BorderLayout.CENTER);
         jPanel1.add(filler1, java.awt.BorderLayout.LINE_START);
@@ -290,46 +288,162 @@ public class user_menu extends javax.swing.JPanel {
 
     private void myButtonborderless1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myButtonborderless1MouseClicked
         // TODO add your handling code here:
-        GlassPanePopup.showPopup(new add_user());
+        GlassPanePopup.showPopup(new add_book());
     }//GEN-LAST:event_myButtonborderless1MouseClicked
 
     private void myButtonborderless1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButtonborderless1ActionPerformed
         // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF Files", "pdf");
+        fileChooser.setFileFilter(filter);
+        int result = fileChooser.showOpenDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            this.localFilePath = selectedFile.getAbsolutePath();
+            this.remoteFilePath = "files/" + selectedFile.getName();
+
+            storage uploader = new storage(this.localFilePath, this.remoteFilePath);
+            try {
+                String getnow = new SimpleDateFormat("EEEEE MMMMM yyyy HH:mm:ss.SSSZ").format(Calendar.getInstance().getTime());
+
+                String downloadUrl = uploader.upload();
+                String key = databaseReference.push().getKey();
+                v = new pushValue(key);
+                m = new HashMap<>();
+                m.put("filename", selectedFile.getName());
+                m.put("filecreated", getnow);
+                m.put("file", downloadUrl);
+                m.put("key", key);
+                v.pushData("files", m);
+                GlassPanePopup.showPopup(new upload_successful());
+            } catch (IOException ex) {
+                Logger.getLogger(signup.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_myButtonborderless1ActionPerformed
 
-    private void scannerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scannerMouseClicked
+    private void search18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search18ActionPerformed
         // TODO add your handling code here:
-        GlassPanePopup.showPopup(new scanbarcode());
-    }//GEN-LAST:event_scannerMouseClicked
+    }//GEN-LAST:event_search18ActionPerformed
 
-    private void scannerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scannerMouseExited
+    private void search18KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_search18KeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_scannerMouseExited
+        EventAction eventAction = new EventAction() {
+            @Override
+            public void update(Book book) {
+                try {
+                    String filename = book.getFilename();
+                    new storage().download(filename);
+                } catch (IOException ex) {
+                    Logger.getLogger(books_menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        };
+
+        dbRef = FirebaseDatabase.getInstance().getReference("files/");
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mod.setRowCount(0);
+
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    if (child.child("filename").getValue(String.class).contains("BP#") && child.child("filename").getValue(String.class).toLowerCase().contains(search18.getText())) {
+                        String key = child.child("key").getValue(String.class);
+                        String filename = child.child("filename").getValue(String.class);
+                        String file_created = child.child("filecreated").getValue(String.class);
+
+                        inshelfTable1.addRow(new Book(filename, file_created).toRowTableFiles(eventAction));
+                        new Book().setChildKey(key);
+                        mod.fireTableDataChanged();
+                        inshelfTable1.repaint();
+                        inshelfTable1.revalidate();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("Error: " + databaseError.getMessage());
+            }
+        });
+    }//GEN-LAST:event_search18KeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
+    public libratech.books.inshelf.InshelfTable inshelfTable1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
+    private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
-    private libratech.design.MaterialTabbed materialTabbed1;
-    private libratech.design.MaterialTabbed materialTabbed2;
+    private javax.swing.JScrollPane jScrollPane1;
     private libratech.design.MyButtonborderless myButtonborderless1;
-    private javax.swing.JLabel scanner;
-    private libratech.user.students.studentTable studentTable1;
-    private libratech.user.students.studentTable studentTable2;
-    private javax.swing.JLabel userslabel;
+    private javax.swing.JTextField search;
+    private javax.swing.JTextField search1;
+    private javax.swing.JTextField search10;
+    private javax.swing.JTextField search11;
+    private javax.swing.JTextField search12;
+    private javax.swing.JTextField search13;
+    private javax.swing.JTextField search14;
+    private javax.swing.JTextField search15;
+    private javax.swing.JTextField search16;
+    private javax.swing.JTextField search17;
+    private javax.swing.JTextField search18;
+    private javax.swing.JTextField search2;
+    private javax.swing.JTextField search3;
+    private javax.swing.JTextField search4;
+    private javax.swing.JTextField search5;
+    private javax.swing.JTextField search6;
+    private javax.swing.JTextField search7;
+    private javax.swing.JTextField search8;
+    private javax.swing.JTextField search9;
     // End of variables declaration//GEN-END:variables
     public void initFont() {
-        materialTabbed1.setFont(new Font("Poppins Regular", Font.BOLD, 16));
-        userslabel.setFont(new Font("Poppins Regular", Font.BOLD, 24));
+        jLabel1.setFont(new Font("Poppins Regular", Font.BOLD, 24));
         myButtonborderless1.setFont(new Font("Poppins Regular", Font.BOLD, 14));
+        search18.setFont(new Font("Poppins Regular", Font.PLAIN, 12));
 
     }
 

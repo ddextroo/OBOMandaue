@@ -26,6 +26,12 @@ public class Book {
     private String barcode;
     private String status_string;
     private String due_date;
+    
+    
+    private String filename;
+    private String filecreated;
+    private String key;
+    private String file;
 
     public String getStatus_string() {
         return status_string;
@@ -55,6 +61,17 @@ public class Book {
 //        g.dispose();
 //        return resizedImage;
 //    }
+    
+    
+    public String getFile() {
+        return file;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+    
+
     private Border createEmptyBorderWithInsets(int top, int left, int bottom, int right) {
         return BorderFactory.createEmptyBorder(top, left, bottom, right);
     }
@@ -137,6 +154,11 @@ public class Book {
 
         return new Object[]{title, barcode, due_date, new ModelAction(this, event)};
     }
+    
+    public Object[] toRowTableFiles(EventAction event) {
+
+        return new Object[]{filename, filecreated, new ModelAction(this, event)};
+    }
 
     public Book(String bookCoverUrl, String author, String title, String date, String deck, String classification, String controlNumber, String publisher, String copies, String shelf, StatusType status) {
         this.bookCoverUrl = bookCoverUrl;
@@ -171,11 +193,11 @@ public class Book {
         this.status_string = status_string;
     }
 
-    public Book(String title, String barcode, String due_date) {
-        this.title = title;
-        this.barcode = barcode;
-        this.due_date = due_date;
+    public Book(String filename, String filecreated) {
+        this.filename = filename;
+        this.filecreated = filecreated;
     }
+   
 
     public Book() {
 

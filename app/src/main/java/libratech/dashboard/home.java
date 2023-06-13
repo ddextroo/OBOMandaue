@@ -44,7 +44,6 @@ public class home extends javax.swing.JFrame {
     dashboard_menu dashboard_menu = new dashboard_menu();
     books_menu book_menu = new books_menu();
     user_menu user_menu = new user_menu();
-    settings_menu setting_menu = new settings_menu();
     private String uid;
     private ChildEventListener accinfo;
     private final String path = "users/";
@@ -57,110 +56,36 @@ public class home extends javax.swing.JFrame {
         jPanel3.add(dashboard_menu, "dashboard");
         jPanel3.add(book_menu, "book");
         jPanel3.add(user_menu, "user");
-        jPanel3.add(setting_menu, "setting");
         CardLayout cardLayout = (CardLayout) jPanel3.getLayout();
         cardLayout.show(jPanel3, "dashboard");
         jPanel10.setBackground(Color.decode("#0E2C4A"));
         jPanel15.setBackground(Color.decode("#041C34"));
         jPanel18.setBackground(Color.decode("#041C34"));
-        jPanel20.setBackground(Color.decode("#041C34"));
-        ImageIcon icon1 = new ImageIcon("resources1/logo.png");
+        ImageIcon icon1 = new ImageIcon("src\\main\\resources\\l.png");
         this.setIconImage(icon1.getImage());
         new firebaseInit().initFirebase();
         GlassPanePopup.install(this);
 
-        scaler.scaleImage(jLabel3, "src\\main\\resources\\logo.png");
-        scaler.scaleImage(jLabel10, "src\\main\\resources\\dashboard-fill.png");
-        scaler.scaleImage(jLabel15, "src\\main\\resources\\book-line.png");
-        scaler.scaleImage(jLabel18, "src\\main\\resources\\user-line.png");
-        scaler.scaleImage(jLabel21, "src\\main\\resources\\settings-line.png");
+        scaler.scaleImage(jLabel3, "src\\main\\resources\\l.png");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         initFont();
 
-        accinfo = new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                GenericTypeIndicator<HashMap<String, Object>> _ind = new GenericTypeIndicator<HashMap<String, Object>>() {
-                };
-                final String _childKey = dataSnapshot.getKey();
-                final HashMap<String, Object> _childValue = dataSnapshot.getValue(_ind);
-                if (_childKey.equals(uid)) {
-                    school_n.setText(_childValue.get("school_name").toString());
-                    idnum.setText(_childValue.get("school_id").toString());
-                    durl = _childValue.get("url").toString();
+        String filePath = "uid.txt";
+        File file = new File(filePath);
 
-                    Timer timer = new Timer(500, e -> {
-                        try {
-                            GlassPanePopup.showPopup(new loading());
-                            URL url1 = new URL(durl);
-                            BufferedImage image1 = ImageIO.read(url1);
-                            ImageIcon icon = new ImageIcon(image1);
-                            imageAvatar1.setIcon(icon);
-                            GlassPanePopup.closePopupLast();
-                        } catch (MalformedURLException ex) {
-                            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (IOException ex) {
-                            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    });
-                    timer.setRepeats(false);
-                    timer.start();  
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot ds, String string) {
-                GenericTypeIndicator<HashMap<String, Object>> _ind = new GenericTypeIndicator<HashMap<String, Object>>() {
-                };
-                final String _childKey = ds.getKey();
-                final HashMap<String, Object> _childValue = ds.getValue(_ind);
-                if (_childKey.equals(uid)) {
-                    school_n.setText(_childValue.get("school_name").toString());
-                    idnum.setText(_childValue.get("school_id").toString());
-                    durl = _childValue.get("url").toString();
-                    
-                    Timer timer = new Timer(500, e -> {
-                        try {
-                            GlassPanePopup.showPopup(new loading());
-                            URL url1 = new URL(durl);
-                            BufferedImage image1 = ImageIO.read(url1);
-                            ImageIcon icon = new ImageIcon(image1);
-                            imageAvatar1.setIcon(icon);
-                            GlassPanePopup.closePopupLast();
-                        } catch (MalformedURLException ex) {
-                            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (IOException ex) {
-                            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    });
-                    timer.setRepeats(false);
-                    timer.start();
-                }
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot ds) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot ds, String string) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-            }
-        };
-        acc.addChildEventListener(accinfo);
+        if (!file.exists()) {
+            jPanel5.setVisible(false);
+            myButton2.setVisible(true);
+        } else {
+            myButton2.setVisible(false);
+            jPanel5.setVisible(true);
+        }
 
     }
 
     public void updateLabelText(String text) {
         this.uid = text;
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -177,38 +102,26 @@ public class home extends javax.swing.JFrame {
         jPanel10 = new RoundedPanelBorderless(12, new java.awt.Color(4,28,52,0));
         jPanel14 = new RoundedPanelBorderless(12, new java.awt.Color(41,182,246, 0));
         filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 32767));
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jPanel15 = new RoundedPanelBorderless(12, new java.awt.Color(41,182,246, 0));
         jPanel16 = new RoundedPanelBorderless(12, new java.awt.Color(41,182,246, 0));
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 32767));
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jPanel18 = new RoundedPanelBorderless(12, new java.awt.Color(41,182,246, 0));
         jPanel19 = new RoundedPanelBorderless(12, new java.awt.Color(41,182,246, 0));
         filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 32767));
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jPanel20 = new RoundedPanelBorderless(12, new java.awt.Color(41,182,246, 0));
-        jPanel21 = new RoundedPanelBorderless(12, new java.awt.Color(41,182,246, 0));
-        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 0), new java.awt.Dimension(15, 32767));
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
-        imageAvatar1 = new libratech.design.ImageAvatar();
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         jPanel4 = new javax.swing.JPanel();
         school_n = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        idnum = new javax.swing.JLabel();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         jPanel9 = new javax.swing.JPanel();
         myButton1 = new libratech.design.MyButton();
+        jPanel8 = new javax.swing.JPanel();
+        myButton2 = new libratech.design.MyButton();
         jPanel3 = new javax.swing.JPanel();
 
         jLabel4.setText("jLabel4");
@@ -242,11 +155,11 @@ public class home extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(250, 250, 250));
-        jLabel8.setText("LIBRATECH");
+        jLabel8.setText("OFFICE OF THE");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(250, 250, 250));
-        jLabel9.setText("Library System Solution");
+        jLabel9.setText("BUILDING OFFICIAL");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -259,7 +172,7 @@ public class home extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 750, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 767, Short.MAX_VALUE)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -299,15 +212,9 @@ public class home extends javax.swing.JFrame {
         jPanel14.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 5));
         jPanel14.add(filler8);
 
-        jLabel10.setPreferredSize(new java.awt.Dimension(27, 27));
-        jPanel14.add(jLabel10);
-
-        jLabel11.setText("       ");
-        jPanel14.add(jLabel11);
-
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(250, 250, 250));
-        jLabel14.setText("Dashboard");
+        jLabel14.setText("Home");
         jPanel14.add(jLabel14);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -324,7 +231,7 @@ public class home extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jPanel15.setBackground(new java.awt.Color(41,182,246, 0));
@@ -347,15 +254,9 @@ public class home extends javax.swing.JFrame {
         jPanel16.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 5));
         jPanel16.add(filler9);
 
-        jLabel15.setPreferredSize(new java.awt.Dimension(27, 27));
-        jPanel16.add(jLabel15);
-
-        jLabel16.setText("       ");
-        jPanel16.add(jLabel16);
-
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(224, 224, 224));
-        jLabel17.setText("Books");
+        jLabel17.setText("Occupancy Files");
         jPanel16.add(jLabel17);
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
@@ -372,7 +273,7 @@ public class home extends javax.swing.JFrame {
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jPanel18.setBackground(new java.awt.Color(41,182,246, 0));
@@ -395,15 +296,9 @@ public class home extends javax.swing.JFrame {
         jPanel19.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 5));
         jPanel19.add(filler10);
 
-        jLabel18.setPreferredSize(new java.awt.Dimension(27, 27));
-        jPanel19.add(jLabel18);
-
-        jLabel19.setText("       ");
-        jPanel19.add(jLabel19);
-
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(224, 224, 224));
-        jLabel20.setText("User");
+        jLabel20.setText("Building Permit");
         jPanel19.add(jLabel20);
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
@@ -420,61 +315,12 @@ public class home extends javax.swing.JFrame {
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
-        );
-
-        jPanel20.setBackground(new java.awt.Color(41,182,246, 0));
-        jPanel20.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel20.setPreferredSize(new java.awt.Dimension(50, 50));
-        jPanel20.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel20MouseClicked(evt);
-            }
-        });
-
-        jPanel21.setBackground(new java.awt.Color(41,182,246, 65));
-        jPanel21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel21.setOpaque(false);
-        jPanel21.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel21MouseClicked(evt);
-            }
-        });
-        jPanel21.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 5));
-        jPanel21.add(filler11);
-
-        jLabel21.setPreferredSize(new java.awt.Dimension(27, 27));
-        jPanel21.add(jLabel21);
-
-        jLabel22.setText("       ");
-        jPanel21.add(jLabel22);
-
-        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(224, 224, 224));
-        jLabel23.setText("Settings");
-        jPanel21.add(jLabel23);
-
-        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
-        jPanel20.setLayout(jPanel20Layout);
-        jPanel20Layout.setHorizontalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel20Layout.setVerticalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(4, 28, 52));
         jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.Y_AXIS));
         jPanel5.add(filler1);
-        jPanel5.add(imageAvatar1);
         jPanel5.add(filler4);
 
         jPanel4.setBackground(new java.awt.Color(4, 28, 52));
@@ -483,19 +329,13 @@ public class home extends javax.swing.JFrame {
 
         school_n.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         school_n.setForeground(new java.awt.Color(250, 250, 250));
-        school_n.setText("School Name");
+        school_n.setText("Staff");
         jPanel4.add(school_n);
 
         jPanel5.add(jPanel4);
 
         jPanel6.setBackground(new java.awt.Color(4, 28, 52));
         jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.LINE_AXIS));
-
-        idnum.setBackground(new java.awt.Color(250, 250, 250));
-        idnum.setForeground(new java.awt.Color(250, 250, 250));
-        idnum.setText("ID Number");
-        jPanel6.add(idnum);
-
         jPanel5.add(jPanel6);
         jPanel5.add(filler2);
 
@@ -513,6 +353,18 @@ public class home extends javax.swing.JFrame {
 
         jPanel5.add(jPanel9);
 
+        jPanel8.setBackground(new java.awt.Color(4, 28, 52));
+
+        myButton2.setForeground(new java.awt.Color(250, 250, 250));
+        myButton2.setText("Login");
+        myButton2.setPreferredSize(new java.awt.Dimension(76, 40));
+        myButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myButton2ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(myButton2);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -520,8 +372,11 @@ public class home extends javax.swing.JFrame {
             .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
             .addComponent(jPanel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
             .addComponent(jPanel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-            .addComponent(jPanel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -532,9 +387,9 @@ public class home extends javax.swing.JFrame {
                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 493, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 440, Short.MAX_VALUE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -554,15 +409,9 @@ public class home extends javax.swing.JFrame {
         jPanel15.setBackground(Color.decode("#0E2C4A"));
         jPanel10.setBackground(Color.decode("#041C34"));
         jPanel18.setBackground(Color.decode("#041C34"));
-        jPanel20.setBackground(Color.decode("#041C34"));
         jLabel17.setFont(new Font("Poppins Regular", Font.BOLD, 16));
         jLabel14.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
         jLabel20.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        jLabel23.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        scaler.scaleImage(jLabel10, "src\\main\\resources\\dashboard-line.png");
-        scaler.scaleImage(jLabel15, "src\\main\\resources\\book-fill.png");
-        scaler.scaleImage(jLabel18, "src\\main\\resources\\user-line.png");
-        scaler.scaleImage(jLabel21, "src\\main\\resources\\settings-line.png");
         CardLayout cardLayout = (CardLayout) jPanel3.getLayout();
         cardLayout.show(jPanel3, "book");
     }//GEN-LAST:event_jPanel16MouseClicked
@@ -637,15 +486,9 @@ public class home extends javax.swing.JFrame {
         jPanel10.setBackground(Color.decode("#0E2C4A"));
         jPanel15.setBackground(Color.decode("#041C34"));
         jPanel18.setBackground(Color.decode("#041C34"));
-        jPanel20.setBackground(Color.decode("#041C34"));
         jLabel14.setFont(new Font("Poppins Regular", Font.BOLD, 16));
         jLabel17.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
         jLabel20.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        jLabel23.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        scaler.scaleImage(jLabel10, "src\\main\\resources\\dashboard-fill.png");
-        scaler.scaleImage(jLabel15, "src\\main\\resources\\book-line.png");
-        scaler.scaleImage(jLabel18, "src\\main\\resources\\user-line.png");
-        scaler.scaleImage(jLabel21, "src\\main\\resources\\settings-line.png");
         CardLayout cardLayout = (CardLayout) jPanel3.getLayout();
         cardLayout.show(jPanel3, "dashboard");
     }//GEN-LAST:event_jPanel10MouseClicked
@@ -655,15 +498,9 @@ public class home extends javax.swing.JFrame {
         jPanel15.setBackground(Color.decode("#0E2C4A"));
         jPanel10.setBackground(Color.decode("#041C34"));
         jPanel18.setBackground(Color.decode("#041C34"));
-        jPanel20.setBackground(Color.decode("#041C34"));
         jLabel17.setFont(new Font("Poppins Regular", Font.BOLD, 16));
         jLabel14.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
         jLabel20.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        jLabel23.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        scaler.scaleImage(jLabel10, "src\\main\\resources\\dashboard-line.png");
-        scaler.scaleImage(jLabel15, "src\\main\\resources\\book-fill.png");
-        scaler.scaleImage(jLabel18, "src\\main\\resources\\user-line.png");
-        scaler.scaleImage(jLabel21, "src\\main\\resources\\settings-line.png");
         CardLayout cardLayout = (CardLayout) jPanel3.getLayout();
         cardLayout.show(jPanel3, "book");
     }//GEN-LAST:event_jPanel15MouseClicked
@@ -673,51 +510,21 @@ public class home extends javax.swing.JFrame {
         jPanel18.setBackground(Color.decode("#0E2C4A"));
         jPanel15.setBackground(Color.decode("#041C34"));
         jPanel10.setBackground(Color.decode("#041C34"));
-        jPanel20.setBackground(Color.decode("#041C34"));
         jLabel20.setFont(new Font("Poppins Regular", Font.BOLD, 16));
         jLabel17.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
         jLabel14.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        jLabel23.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        scaler.scaleImage(jLabel10, "src\\main\\resources\\dashboard-line.png");
-        scaler.scaleImage(jLabel15, "src\\main\\resources\\book-line.png");
-        scaler.scaleImage(jLabel18, "src\\main\\resources\\user-fill.png");
-        scaler.scaleImage(jLabel21, "src\\main\\resources\\settings-line.png");
         CardLayout cardLayout = (CardLayout) jPanel3.getLayout();
         cardLayout.show(jPanel3, "user");
     }//GEN-LAST:event_jPanel18MouseClicked
-
-    private void jPanel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel20MouseClicked
-        // TODO add your handling code here:
-        jPanel20.setBackground(Color.decode("#0E2C4A"));
-        jPanel15.setBackground(Color.decode("#041C34"));
-        jPanel18.setBackground(Color.decode("#041C34"));
-        jPanel10.setBackground(Color.decode("#041C34"));
-        jLabel23.setFont(new Font("Poppins Regular", Font.BOLD, 16));
-        jLabel17.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        jLabel20.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        jLabel14.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        scaler.scaleImage(jLabel10, "src\\main\\resources\\dashboard-line.png");
-        scaler.scaleImage(jLabel15, "src\\main\\resources\\book-line.png");
-        scaler.scaleImage(jLabel18, "src\\main\\resources\\user-line.png");
-        scaler.scaleImage(jLabel21, "src\\main\\resources\\settings-fill.png");
-        CardLayout cardLayout = (CardLayout) jPanel3.getLayout();
-        cardLayout.show(jPanel3, "setting");
-    }//GEN-LAST:event_jPanel20MouseClicked
 
     private void jPanel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel14MouseClicked
         // TODO add your handling code here:
         jPanel10.setBackground(Color.decode("#0E2C4A"));
         jPanel15.setBackground(Color.decode("#041C34"));
         jPanel18.setBackground(Color.decode("#041C34"));
-        jPanel20.setBackground(Color.decode("#041C34"));
         jLabel14.setFont(new Font("Poppins Regular", Font.BOLD, 16));
         jLabel17.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
         jLabel20.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        jLabel23.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        scaler.scaleImage(jLabel10, "src\\main\\resources\\dashboard-fill.png");
-        scaler.scaleImage(jLabel15, "src\\main\\resources\\book-line.png");
-        scaler.scaleImage(jLabel18, "src\\main\\resources\\user-line.png");
-        scaler.scaleImage(jLabel21, "src\\main\\resources\\settings-line.png");
         CardLayout cardLayout = (CardLayout) jPanel3.getLayout();
         cardLayout.show(jPanel3, "dashboard");
     }//GEN-LAST:event_jPanel14MouseClicked
@@ -727,36 +534,20 @@ public class home extends javax.swing.JFrame {
         jPanel18.setBackground(Color.decode("#0E2C4A"));
         jPanel15.setBackground(Color.decode("#041C34"));
         jPanel10.setBackground(Color.decode("#041C34"));
-        jPanel20.setBackground(Color.decode("#041C34"));
         jLabel20.setFont(new Font("Poppins Regular", Font.BOLD, 16));
         jLabel17.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
         jLabel14.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        jLabel23.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        scaler.scaleImage(jLabel10, "src\\main\\resources\\dashboard-line.png");
-        scaler.scaleImage(jLabel15, "src\\main\\resources\\book-line.png");
-        scaler.scaleImage(jLabel18, "src\\main\\resources\\user-fill.png");
-        scaler.scaleImage(jLabel21, "src\\main\\resources\\settings-line.png");
         CardLayout cardLayout = (CardLayout) jPanel3.getLayout();
         cardLayout.show(jPanel3, "user");
     }//GEN-LAST:event_jPanel19MouseClicked
 
-    private void jPanel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel21MouseClicked
+    private void myButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton2ActionPerformed
         // TODO add your handling code here:
-        jPanel20.setBackground(Color.decode("#0E2C4A"));
-        jPanel15.setBackground(Color.decode("#041C34"));
-        jPanel18.setBackground(Color.decode("#041C34"));
-        jPanel10.setBackground(Color.decode("#041C34"));
-        jLabel23.setFont(new Font("Poppins Regular", Font.BOLD, 16));
-        jLabel17.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        jLabel20.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        jLabel14.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        scaler.scaleImage(jLabel10, "src\\main\\resources\\dashboard-line.png");
-        scaler.scaleImage(jLabel15, "src\\main\\resources\\book-line.png");
-        scaler.scaleImage(jLabel18, "src\\main\\resources\\user-line.png");
-        scaler.scaleImage(jLabel21, "src\\main\\resources\\settings-fill.png");
-        CardLayout cardLayout = (CardLayout) jPanel3.getLayout();
-        cardLayout.show(jPanel3, "setting");
-    }//GEN-LAST:event_jPanel21MouseClicked
+        login login = new login();
+        login.setVisible(true);
+        this.dispose();
+        this.setVisible(false);
+    }//GEN-LAST:event_myButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -796,59 +587,45 @@ public class home extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;
-    private javax.swing.Box.Filler filler11;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler4;
     private javax.swing.Box.Filler filler8;
     private javax.swing.Box.Filler filler9;
-    private javax.swing.JLabel idnum;
-    private libratech.design.ImageAvatar imageAvatar1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
+    public javax.swing.JLabel jLabel14;
+    public javax.swing.JLabel jLabel17;
+    public javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel19;
+    public javax.swing.JPanel jPanel10;
+    public javax.swing.JPanel jPanel14;
+    public javax.swing.JPanel jPanel15;
+    public javax.swing.JPanel jPanel16;
+    public javax.swing.JPanel jPanel18;
+    public javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel21;
     public javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private libratech.design.MyButton myButton1;
+    private libratech.design.MyButton myButton2;
     private javax.swing.JLabel school_n;
     // End of variables declaration//GEN-END:variables
     public void initFont() {
         jLabel14.setFont(new Font("Poppins Regular", Font.BOLD, 16));
         jLabel17.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
         jLabel20.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
-        jLabel23.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
         jLabel8.setFont(new Font("Poppins Regular", Font.BOLD, 18));
         jLabel9.setFont(new Font("Poppins Regular", Font.PLAIN, 14));
         jLabel5.setFont(new Font("Poppins Regular", Font.BOLD, 18));
         school_n.setFont(new Font("Poppins Regular", Font.BOLD, 16));
-        idnum.setFont(new Font("Poppins Regular", Font.BOLD, 12));
         myButton1.setFont(new Font("Poppins Regular", Font.PLAIN, 16));
     }
 }

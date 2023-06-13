@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import libratech.util.firebaseInit;
 import javax.swing.UIManager;
 import libratech.auth.splash;
+import libratech.dashboard.home;
 
 public class App {
 
@@ -37,7 +38,7 @@ public class App {
 
         //ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResources("resources1/logo.png"));
 
-        new splash().setVisible(true);
+        new home().setVisible(true);
 
     }
 }

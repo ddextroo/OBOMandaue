@@ -9,18 +9,28 @@ import com.google.cloud.storage.StorageOptions;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
+import libratech.dashboard.download_successful;
+import libratech.design.GlassPanePopup;
 
 public class storage {
 
-    private final String localFilePath;
-    private final String remoteFilePath;
+    private String localFilePath;
+    private String remoteFilePath;
 
     public storage(String localFilePath, String remoteFilePath) {
         this.localFilePath = localFilePath;
         this.remoteFilePath = remoteFilePath;
+    }
+
+    public storage() {
     }
 
     public String upload() throws IOException {
@@ -48,8 +58,31 @@ public class storage {
         String urlWithToken = downloadUrl + "?alt=media&token=" + blob.getGeneratedId();
         String signedUrl = blob.signUrl(1, TimeUnit.MINUTES).toString();
 
-        
         return downloadUrl;
+    }
+
+    public void download(String filePath) throws IOException {
+        String bucketName = "guestify-985ec.appspot.com";
+        FileInputStream serviceAccount = new FileInputStream("credentials2.json");
+        GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
+
+        StorageOptions storageOptions = StorageOptions.newBuilder()
+                .setCredentials(credentials)
+                .build();
+
+        Storage storage = StorageOptions.newBuilder().setCredentials(storageOptions.getCredentials()).build().getService();
+
+        BlobId blobId = BlobId.of(bucketName, "files/"+ filePath);
+        Blob blob = storage.get(blobId);
+
+        if (blob != null) {
+            blob.downloadTo(Paths.get(System.getProperty("user.home") + "/Downloads/" + filePath));
+            System.out.println("File downloaded successfully.");
+            GlassPanePopup.showPopup(new download_successful());
+        } else {
+            System.out.println("File does not exist.");
+        }
+
     }
 
     private String getMimeType(File file) throws IOException {
