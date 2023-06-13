@@ -97,6 +97,7 @@ public class books_menu extends javax.swing.JPanel {
     ;
 
     private void retrieveData() {
+        System.out.println("test");
         EventAction eventAction = new EventAction() {
             @Override
             public void update(Book book) {
