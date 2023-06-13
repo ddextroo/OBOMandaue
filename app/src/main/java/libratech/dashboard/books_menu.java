@@ -70,6 +70,7 @@ public class books_menu extends javax.swing.JPanel {
     public books_menu() {
         initComponents();
         initFont();
+        new firebaseInit().initFirebase();
         this.databaseReference = FirebaseDatabase.getInstance().getReference();
         this.mod = (DefaultTableModel) inshelfTable1.getModel();
         new firebaseInit().initFirebase();
@@ -97,7 +98,6 @@ public class books_menu extends javax.swing.JPanel {
     ;
 
     private void retrieveData() {
-        System.out.println("test");
         EventAction eventAction = new EventAction() {
             @Override
             public void update(Book book) {
