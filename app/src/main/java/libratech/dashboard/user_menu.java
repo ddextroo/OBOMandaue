@@ -100,12 +100,13 @@ public class user_menu extends javax.swing.JPanel {
         EventAction eventAction = new EventAction() {
             @Override
             public void update(Book book) {
-                try {
+               // try {
                     String filename = book.getFilename();
-                    new storage().download(filename);
-                } catch (IOException ex) {
-                    Logger.getLogger(books_menu.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    GlassPanePopup.showPopup(new view_pdf(book.getFile(), book.getFilename(), book.getKey()));
+                    //new storage().download(filename);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(books_menu.class.getName()).log(Level.SEVERE, null, ex);
+//                }
             }
         };
 
@@ -120,8 +121,9 @@ public class user_menu extends javax.swing.JPanel {
                         String key = child.child("key").getValue(String.class);
                         String filename = child.child("filename").getValue(String.class);
                         String file_created = child.child("filecreated").getValue(String.class);
+                        String file = child.child("file").getValue(String.class);
 
-                        inshelfTable1.addRow(new Book(filename, file_created).toRowTableFiles(eventAction));
+                        inshelfTable1.addRow(new Book(filename, file_created, file, key).toRowTableFiles(eventAction));
                         new Book().setChildKey(key);
                         mod.fireTableDataChanged();
                         inshelfTable1.repaint();
@@ -221,9 +223,9 @@ public class user_menu extends javax.swing.JPanel {
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(search18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(search18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -332,12 +334,13 @@ public class user_menu extends javax.swing.JPanel {
         EventAction eventAction = new EventAction() {
             @Override
             public void update(Book book) {
-                try {
+              // try {
                     String filename = book.getFilename();
-                    new storage().download(filename);
-                } catch (IOException ex) {
-                    Logger.getLogger(books_menu.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    GlassPanePopup.showPopup(new view_pdf(book.getFile(), book.getFilename(), book.getKey()));
+                    //new storage().download(filename);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(books_menu.class.getName()).log(Level.SEVERE, null, ex);
+//                }
             }
         };
 
@@ -352,8 +355,9 @@ public class user_menu extends javax.swing.JPanel {
                         String key = child.child("key").getValue(String.class);
                         String filename = child.child("filename").getValue(String.class);
                         String file_created = child.child("filecreated").getValue(String.class);
+                        String file = child.child("file").getValue(String.class);
 
-                        inshelfTable1.addRow(new Book(filename, file_created).toRowTableFiles(eventAction));
+                        inshelfTable1.addRow(new Book(filename, file_created, file, key).toRowTableFiles(eventAction));
                         new Book().setChildKey(key);
                         mod.fireTableDataChanged();
                         inshelfTable1.repaint();
@@ -377,68 +381,14 @@ public class user_menu extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler3;
     public libratech.books.inshelf.InshelfTable inshelfTable1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel19;
-    private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
-    private javax.swing.JPanel jPanel23;
-    private javax.swing.JPanel jPanel24;
-    private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private libratech.design.MyButtonborderless myButtonborderless1;
-    private javax.swing.JTextField search;
-    private javax.swing.JTextField search1;
-    private javax.swing.JTextField search10;
-    private javax.swing.JTextField search11;
-    private javax.swing.JTextField search12;
-    private javax.swing.JTextField search13;
-    private javax.swing.JTextField search14;
-    private javax.swing.JTextField search15;
-    private javax.swing.JTextField search16;
-    private javax.swing.JTextField search17;
     private javax.swing.JTextField search18;
-    private javax.swing.JTextField search2;
-    private javax.swing.JTextField search3;
-    private javax.swing.JTextField search4;
-    private javax.swing.JTextField search5;
-    private javax.swing.JTextField search6;
-    private javax.swing.JTextField search7;
-    private javax.swing.JTextField search8;
-    private javax.swing.JTextField search9;
     // End of variables declaration//GEN-END:variables
     public void initFont() {
         jLabel1.setFont(new Font("Poppins Regular", Font.BOLD, 24));

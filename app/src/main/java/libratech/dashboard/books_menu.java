@@ -73,7 +73,6 @@ public class books_menu extends javax.swing.JPanel {
         new firebaseInit().initFirebase();
         this.databaseReference = FirebaseDatabase.getInstance().getReference();
         this.mod = (DefaultTableModel) inshelfTable1.getModel();
-        new firebaseInit().initFirebase();
         inshelfTable1.fixTable(jScrollPane1);
         retrieveData();
         scaler.scaleImage(jLabel2, "src\\main\\resources\\search-line.png");
@@ -101,12 +100,13 @@ public class books_menu extends javax.swing.JPanel {
         EventAction eventAction = new EventAction() {
             @Override
             public void update(Book book) {
-                try {
+              // try {
                     String filename = book.getFilename();
-                    new storage().download(filename);
-                } catch (IOException ex) {
-                    Logger.getLogger(books_menu.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    GlassPanePopup.showPopup(new view_pdf(book.getFile(), book.getFilename(), book.getKey()));
+                    //new storage().download(filename);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(books_menu.class.getName()).log(Level.SEVERE, null, ex);
+//                }
             }
         };
 
@@ -121,8 +121,9 @@ public class books_menu extends javax.swing.JPanel {
                         String key = child.child("key").getValue(String.class);
                         String filename = child.child("filename").getValue(String.class);
                         String file_created = child.child("filecreated").getValue(String.class);
+                        String file = child.child("file").getValue(String.class);
 
-                        inshelfTable1.addRow(new Book(filename, file_created).toRowTableFiles(eventAction));
+                        inshelfTable1.addRow(new Book(filename, file_created, file, key).toRowTableFiles(eventAction));
                         new Book().setChildKey(key);
                         mod.fireTableDataChanged();
                         inshelfTable1.repaint();
@@ -346,12 +347,13 @@ public class books_menu extends javax.swing.JPanel {
         EventAction eventAction = new EventAction() {
             @Override
             public void update(Book book) {
-                try {
+                // try {
                     String filename = book.getFilename();
-                    new storage().download(filename);
-                } catch (IOException ex) {
-                    Logger.getLogger(books_menu.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    GlassPanePopup.showPopup(new view_pdf(book.getFile(), book.getFilename(), book.getKey()));
+                    //new storage().download(filename);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(books_menu.class.getName()).log(Level.SEVERE, null, ex);
+//                }
             }
         };
 
@@ -366,8 +368,9 @@ public class books_menu extends javax.swing.JPanel {
                         String key = child.child("key").getValue(String.class);
                         String filename = child.child("filename").getValue(String.class);
                         String file_created = child.child("filecreated").getValue(String.class);
+                        String file = child.child("file").getValue(String.class);
 
-                        inshelfTable1.addRow(new Book(filename, file_created).toRowTableFiles(eventAction));
+                        inshelfTable1.addRow(new Book(filename, file_created ,file, key).toRowTableFiles(eventAction));
                         new Book().setChildKey(key);
                         mod.fireTableDataChanged();
                         inshelfTable1.repaint();

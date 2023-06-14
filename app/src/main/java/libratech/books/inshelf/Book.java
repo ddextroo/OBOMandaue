@@ -36,6 +36,11 @@ public class Book {
     public String getStatus_string() {
         return status_string;
     }
+
+    public String getKey() {
+        return key;
+    }
+    
     
 
 //    private ImageIcon createRoundedImageIcon(BufferedImage originalImage, int cornerRadius) {
@@ -193,9 +198,11 @@ public class Book {
         this.status_string = status_string;
     }
 
-    public Book(String filename, String filecreated) {
+    public Book(String filename, String filecreated, String file, String key) {
         this.filename = filename;
         this.filecreated = filecreated;
+        this.file = file;
+        this.key = key;
     }
    
 
